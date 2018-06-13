@@ -1,10 +1,11 @@
-# Workstation
-Setup Guide for the ultimate Deep Learning workstation powered by NVIDIA
+![NVIDIA](images/nvidia.png) ![developer](images/developer.png)
 
-**Work in progress**
+# Workstation Setup Guide
+Setup Guide for the ultimate Deep Learning workstation, powered by NVIDIA
 
-**Outline**
+**Work in progress!**
 
+### Outline
 1. Hardware setup
 2. Installing Ubuntu
 3. Installing CUDA 9.2
