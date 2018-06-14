@@ -12,8 +12,8 @@ Setup Guide for the ultimate Deep Learning workstation, powered by NVIDIA
 4. Installing cuDNN 7.1
 5. Building TensorFlow from source
 6. Installing `nvidia-docker`
-6. Configuring remote access (local network)
-7. Configuring remote access (via Internet)
+7. Configuring remote access (local network)
+8. Configuring remote access (via Internet)
 
 ## Hardware Setup
 
@@ -82,10 +82,43 @@ Wait for your workstation to reboot, then SSH in again. If your display looks fu
 
 After everything is done, reboot. If your display is no longer funky, then the NVIDIA drivers have been properly installed. To check the status of your GPUs, run `nvidia-smi` in the Terminal.
 
-`TO BE CONTINUED`
+## Installing cuDNN 7.1
 
-`TO BE CONTINUED`
+1. Navigate to the directory in which you downloaded the cuDNN file archive.
+2. Extract the files into a folder (`cuda` by default)
+3. Copy the files to the correct directories:
+	- `sudo cp cuda/include/*.* /usr/local/cuda/include/`
+	- `sudo cp cuda/lib64/*.* /usr/local/cuda/lib64/`
+4. `sudo nano /etc/ld.so.conf` and add in the following lines:
 
-`TO BE CONTINUED`
+```
+/usr/local/cuda-9.2/lib64
+/usr/local/cuda-9.2/lib
+```
+
+5. Run `sudo ldconfig`
+
+cuDNN is not installed and working.
+
+## Building TensorFlow from source
+
+This step requires CUDA and cuDNN to be installed and functional.
+
+The full instructions can be found on the [TensorFlow webpage](https://www.tensorflow.org/install/install_sources).
+
+## Installing `nvidia-docker`
+
+`nvidia-docker` allows you to run containers that can take full advantage of GPU compute to accelerate tasks. It requires CUDA to be installed on the host machine.
+
+1. Follow [this guide](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04) to install `docker`
+2. Follow the [instruction](https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0)) to install `nvidia-docker`
+
+## Configuring remote access (local network)
+
+`TODO`
+
+## Configuring remote access (via Internet)
+
+`TODO`
 
 
