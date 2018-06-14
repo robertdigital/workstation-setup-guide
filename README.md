@@ -117,8 +117,18 @@ The full instructions can be found on the [TensorFlow webpage](https://www.tenso
 
 `TODO`
 
+Basically: https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-vnc-on-ubuntu-16-04
+
+Along with SSH.
+
 ## Configuring remote access (via Internet)
 
 `TODO`
+
+Mainly SSH reverse tunneling and RealVNC Home.
+
+Somewhere along the way there's a need to edit the `/etc/ssh/sshd_config` file.
+
+
 
 
