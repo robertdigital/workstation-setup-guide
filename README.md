@@ -98,11 +98,19 @@ After everything is done, reboot. If your display is no longer funky, then the N
 
 5. Run `sudo ldconfig`
 
-cuDNN is not installed and working.
+cuDNN is now installed and working.
 
 ## Building TensorFlow from source
 
-This step requires CUDA and cuDNN to be installed and functional.
+**Optional Prerequisites**
+
+1. Update python base packages by running `sudo pip3 install pip setuptools wheel --upgrade`
+2. Install the entire Python data science stack by running `sudo pip3 install numpy scipy pandas sklearn matplotlib jupyter opencv-contrib-python tensorflow`
+
+**Required Prerequisites**
+
+1. CUDA and cuDNN to be installed and functional.
+2. Install TensorFlow from pip to make sure all dependencies are met
 
 The full instructions can be found on the [TensorFlow webpage](https://www.tensorflow.org/install/install_sources).
 
