@@ -166,5 +166,18 @@ You can use the remote desktop to run Jupyter Notebook sessions in a persistent 
 
 Mainly SSH reverse tunneling and RealVNC Home.
 
-Somewhere along the way there's a need to edit the `/etc/ssh/sshd_config` file.
+### Reverse SSH Tunnel
+
+This will allow you to expose your workstation's SSH and Jupyter Notebook on a public IP address. Naturally, this will come with some security risks. This guide does not fully address such risks.
+
+Sample SSH command:
+
+`nohup autossh -N -T -R :public-port:0.0.0.0:jupyter-port root@public-ip-address &`
+
+Somewhere along the way there's a need to edit the `/etc/ssh/sshd_config` file to add in the following line:
+
+```
+GatewayPorts clientspecified
+```
+
 
