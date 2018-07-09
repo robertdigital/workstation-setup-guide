@@ -3,33 +3,18 @@
 # Workstation Setup Guide
 Setup guide for the ultimate Deep Learning workstation, powered by NVIDIA
 
-**Work in progress!**
+To check out some useful tools, see our [tool guide](nvidia-tools.md).
 
 ### Outline
-1. Hardware setup
-2. Installing Ubuntu
-3. Installing CUDA 9.2
-4. Installing cuDNN 7.1
-5. Building TensorFlow from source
-6. Installing `nvidia-docker`
-7. Configuring remote access (local network)
-8. Configuring remote access (via Internet)
+1. Installing CUDA 9.2
+2. Installing cuDNN 7.1
+3. Building TensorFlow from source
+4. Installing `nvidia-docker`
+5. Configuring remote access (local network)
+6. Configuring remote access (via Internet)
 
-## Hardware Setup
 
-**Key pointers**
-
-`TODO`
-
-- NVIDIA GPUs connected to full length PCIe slots (with x8/x16 lanes)
-- Cooling: if using multiple cards, ensure that the cards have adaquate cooling `(expand further)`
-- GeForce GPUs may draw more than their TDP occasionality, given the thermal headroom to do so. Hence, your power supply unit (PSU) rating should take that into account
-
-## Installing Ubuntu
-
-**Key pointers**
-
-`TODO`
+## Installing CUDA 9.2
 
 **Preparing the Ubuntu environment**
 
@@ -41,8 +26,6 @@ Setup guide for the ultimate Deep Learning workstation, powered by NVIDIA
 You may now SSH into your device by running `ssh username@ip-address` from a macOS or Linux terminal. If you are using Windows, you will require an SSH client such as [PuTTY](https://www.putty.org/).
 
 A system reboot is recommended at this stage.
-
-## Installing CUDA 9.2
 
 **Preparation steps**
 1. Download the CUDA package (`runfile`) from NVIDIA's [developer site](https://developer.nvidia.com/cuda-downloads?target_os=Linux)
@@ -121,13 +104,61 @@ The full instructions can be found on the [TensorFlow webpage](https://www.tenso
 1. Follow [this guide](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04) to install `docker`
 2. Follow the [instruction](https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0)) to install `nvidia-docker`
 
-## Configuring remote access (local network)
+## Configuring remote desktop access (local network)
 
-`TODO`
+### 1. Setup
 
-Basically: https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-vnc-on-ubuntu-16-04
+Remote command line access is provided by SSH (previously configured)
 
-Along with SSH.
+We will install a lightweight desktop enviroment (XFCE) and a VNC server to provide remote desktop capabilities.
+
+`sudo apt install xfce4 xfce4-goodies tightvncserver`
+
+Use the command `vncserver` to start the remote desktop service under your current user:
+
+```
+$ vncserver
+
+New 'X' desktop is your-workstation:1
+
+Starting applications specified in /home/nvaitc/.vnc/xstartup
+Log file is /home/nvaitc/.vnc/your-workstation:1.log
+```
+
+On initial startup, you will be prompted to set a password for your user. Individual accounts on the workstation can each start individual remote desktops to be used simultaneously.
+
+Use `vncserver -kill :1` to kill Desktop `:1`
+
+After initial setup, kill the VNC server and replace the contents of the `xstartup` file:
+
+`nano ~/.vnc/xstartup`
+
+```
+#!/bin/sh
+
+xrdb $HOME/.Xresources
+xsetroot -solid grey
+#x-terminal-emulator -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &
+#x-window-manager &
+# Fix to make GNOME work
+startxfce4 &
+export XKL_XMODMAP_DISABLE=1
+/etc/X11/Xsession
+```
+
+### 2. Connecting
+
+On your client device (phone/tablet/laptop) download a VNC Client. [RealVNC Viewer](https://www.realvnc.com/en/connect/download/viewer/) works on all common platforms without an issue.
+
+Connect by entering the ip-address of your workstation and the desktop number as follows:
+
+![VNC_Connect](images/vnc_viewer.png)
+
+Dismiss any security warning and enter in your password. You will then be presented with your remote desktop:
+
+![VNC_Desktop](images/vnc_desktop.png)
+
+You can use the remote desktop to run Jupyter Notebook sessions in a persistent manner as the state of the desktop and applications will persist between connections.
 
 ## Configuring remote access (via Internet)
 
@@ -136,7 +167,4 @@ Along with SSH.
 Mainly SSH reverse tunneling and RealVNC Home.
 
 Somewhere along the way there's a need to edit the `/etc/ssh/sshd_config` file.
-
-
-
 
