@@ -65,6 +65,16 @@ Wait for your workstation to reboot, then SSH in again. If your display looks fu
 
 After everything is done, reboot. If your display is no longer funky, then the NVIDIA drivers have been properly installed. To check the status of your GPUs, run `nvidia-smi` in the Terminal.
 
+### Special Note on NVIDIA Driver
+
+The driver bundled with the CUDA toolkit will work perfectly until the next Ubuntu kernel update is performed, after which the driver may not functional properly. To ensure the driver remains functional across kernel updates, please reinstall the NVIDIA driver the following way:
+
+`sudo add-apt-repository ppa:graphics-drivers/ppa`
+
+`sudo apt update`
+
+`sudo apt install nvidia-396 -y && sudo reboot`
+
 ## Installing cuDNN 7.1
 
 1. Navigate to the directory in which you downloaded the cuDNN file archive.
