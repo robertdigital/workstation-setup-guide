@@ -170,6 +170,10 @@ Dismiss any security warning and enter in your password. You will then be presen
 
 You can use the remote desktop to run Jupyter Notebook sessions in a persistent manner as the state of the desktop and applications will persist between connections.
 
+### 3. Bonus: SSH Message of the Day (MOTD)
+
+`TODO`
+
 ## Configuring remote access (via Internet)
 
 `TODO`
