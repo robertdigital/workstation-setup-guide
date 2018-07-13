@@ -44,3 +44,9 @@ Mon Jul  9 19:34:47 2018
 +-----------------------------------------------------------------------------+
 ```
 
+- **`gpustat`**
+
+`gpustat` is a compact and powerful version of `nvidia-smi`. Install with `sudo pip3 install gpustat`.
+
+![gpustat](images/gpustat.png)
+
