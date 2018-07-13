@@ -50,3 +50,8 @@ Mon Jul  9 19:34:47 2018
 
 ![gpustat](images/gpustat.png)
 
+## Monitoring Dashboard
+
+`COMING SOON!!`
+
+![grafana](images/grafana_dash.jpg)
