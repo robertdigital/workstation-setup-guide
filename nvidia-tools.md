@@ -8,6 +8,8 @@ Covers some of the useful NVIDIA tools for GPU management on Linux.
 
 `nvidia-settings` is NVIDIA's graphical GPU management utility on Linux
 
+To use `nvidia-settings` over SSH or from a system script (e.g. `rc.local`), prefix the command with `sudo DISPLAY=:0 XAUTHORITY=/var/run/lightdm/root/:0`. This will allow you to change `nvidia-settings` parameters on startup or over SSH.
+
 - **`nvtop`**
 
 `nvtop` is a very nice `htop`-like utility for tracking GPU usage.
