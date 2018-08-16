@@ -170,6 +170,10 @@ Dismiss any security warning and enter in your password. You will then be presen
 
 You can use the remote desktop to run Jupyter Notebook sessions in a persistent manner as the state of the desktop and applications will persist between connections.
 
+Tab doesn't work: https://www.smork.info/blog/2015/06/10/fixing_bash_tab_completion_in_xfce.html
+
+Set bash as default shell: `sudo usermod -s /bin/bash $USERNAME`
+
 ### 3. Bonus: SSH Message of the Day (MOTD)
 
 `TODO`
