@@ -10,8 +10,30 @@ install minikube
 
 sudo minikube start --vm-driver=none --feature-gates=DevicePlugins=true
 
-sudo kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v1.10/nvidia-device-plugin.yml
+fix perms
 
-sudo kubectl get nodes -o=custom-columns=NAME:.metadata.name,GPUs:.status.capacity.'nvidia\.com/gpu'
+kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v1.10/nvidia-device-plugin.yml
+
+kubectl get nodes -o=custom-columns=NAME:.metadata.name,GPUs:.status.capacity.'nvidia\.com/gpu'
+
+NAME       GPUs
+minikube   4
 
 need ks install in /usr/bin
+
+https://github.com/Azure/kubeflow-labs/tree/master/4-kubeflow
+
+For internet access:
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kube-dns
+  namespace: kube-system
+data:
+  upstreamNameservers: |
+    ["8.8.8.8"]
+```
+
+`kubectl apply -f upstreamDNS.yaml`
+
