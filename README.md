@@ -176,13 +176,35 @@ Set bash as default shell: `sudo usermod -s /bin/bash $USERNAME`
 
 ### 3. Bonus: SSH Message of the Day (MOTD)
 
-`TODO`
+This section is going to walk through how to create this kind of nice display upon login via SSH:
+![example login message](images/example_motd.png)
+
+Steps:
+
+```
+sudo apt install lsb-release figlet update-motd finger
+cd /etc/update-motd.d/
+ls
+```
+
+This should show something similar to:
+
+```
+00-header     90-updates-available  98-fsck-at-reboot
+10-help-text  91-release-upgrade    98-reboot-required
+```
+
+These are the script that print the messages shown when someone logs in via SSH. We want to replace some of them with something a little more useful/informative.
+
+We're going to:
+
+* add a nicer ASCII header to `00-header`
+* add user login and GPU usage information to `10-help-text`
+
+Simply replace those files with the files in the `/motd/` folder in this repository.
+
 
 ## Configuring remote access (via Internet)
-
-`TODO`
-
-Mainly SSH reverse tunneling and RealVNC Home.
 
 ### Reverse SSH Tunnel
 
@@ -198,4 +220,6 @@ Somewhere along the way there's a need to edit the `/etc/ssh/sshd_config` file t
 GatewayPorts clientspecified
 ```
 
+### RealVNC Connect
 
+We will use a commercial cloud VNC service called RealVNC Connect. The personal use subcription ("Home") allows cloud VNC connections to up to 5 computers on a user's RealVNC account.

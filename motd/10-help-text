@@ -40,6 +40,4 @@ echo
 gpustat -uc
 
 echo
-/usr/lib/update-notifier/update-motd-reboot-required
-/usr/lib/update-notifier/apt-check --human-readable
-echo
+
