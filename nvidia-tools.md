@@ -2,6 +2,8 @@
 
 Covers some of the useful NVIDIA tools for GPU management on Linux.
 
+[Back](README.md) | [Sharing Guide](sharing.md) | [Kubernetes/Kubeflow Guide](kubeflow-setup.md)
+
 ## Monitoring/System Information
 
 - **`nvidia-settings`**

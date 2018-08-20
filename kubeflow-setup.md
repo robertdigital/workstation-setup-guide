@@ -1,5 +1,7 @@
 # Kubeflow Setup
 
+[Back](README.md) | [Tool Guide](nvidia-tools.md) | [Sharing Guide](sharing.md)
+
 [Kubeflow](https://github.com/kubeflow/kubeflow) is an open-source Cloud Native platform for machine learning. 
 
 The Kubeflow project is dedicated to making deployments of machine learning workflows on Kubernetes simple, portable and scalable, providing a straightforward way to deploy systems for ML to diverse infrastructures. Kubeflow comes with several useful components, including JupyterHub, and has support for GPU-accelerated compute. Check out the official documentation at [kubeflow.org](http://kubeflow.org/).
@@ -19,11 +21,18 @@ https://docs.nvidia.com/datacenter/kubernetes-intall-guide/index.html
 
 commands for:
 set docker default runtime to 'nvidia'
+sudo nano /etc/docker/daemon.json
+ADD:
+"default-runtime": "nvidia",
+under first level
+
 ```
 
-## Installing Minikube
+## Installing Minikube (Single Node Only)
 
 [Minikube](https://github.com/kubernetes/minikube) is a tool that makes it easy to run Kubernetes locally. Minikube runs a single-node Kubernetes cluster inside a VM on your laptop for users looking to try out Kubernetes or develop with it day-to-day.
+
+We will add instructions for multiple node Kubernetes at a later date.
 
 ### Install Minikube
 
@@ -73,6 +82,10 @@ minikube   4
 TODO:
 https://ksonnet.io/
 need ks install in /usr/bin
+
+wget https://github.com/ksonnet/ksonnet/releases/download/v0.12.0/ks_0.12.0_linux_amd64.tar.gz
+tar -xzf ks_0.12.0_linux_amd64.tar.gz
+sudo cp ks_0.12.0_linux_amd64/ks /usr/local/bin/
 ```
 
 ### Install Kubeflow using ksonnet
