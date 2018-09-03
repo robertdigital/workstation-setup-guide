@@ -8,13 +8,14 @@ Setup guide for the ultimate Deep Learning workstation, powered by NVIDIA
 ### Outline
 1. Installing CUDA 9.2
 2. Installing cuDNN 7.1
-3. Building TensorFlow from source
+3. Building TensorFlow from source (optional)
 4. Installing `nvidia-docker`
-5. Configuring remote access (local network)
-6. Configuring remote access (via Internet)
+5. Using containers from NVIDIA GPU Cloud (NGC)
+
+**This guide is tested on Ubuntu 16.04.**
 
 
-## Installing CUDA 9.2
+## Installing NVIDIA drivers + CUDA 9.2
 
 **Preparing the Ubuntu environment**
 
@@ -23,57 +24,33 @@ Setup guide for the ultimate Deep Learning workstation, powered by NVIDIA
 3. Install the SSH server by running `sudo apt install openssh-server -y`
 4. Start the SSH service by running `sudo service ssh start`
 
-You may now SSH into your device by running `ssh username@ip-address` from a macOS or Linux terminal. If you are using Windows, you will require an SSH client such as [PuTTY](https://www.putty.org/).
+SSH allows you remote access to your workstation via the command line. This is extremely useful. You may now SSH into your workstation by running `ssh username@ip-address` from a macOS or Linux terminal. If you are using Windows, you will require an SSH client such as [PuTTY](https://www.putty.org/).
+
+**Installing the NVIDIA drivers**
+
+The driver bundled with the CUDA toolkit will work perfectly until the next Ubuntu kernel update is performed, after which the driver may not functional properly. To ensure the driver remains functional across kernel updates, please install the NVIDIA driver the following way:
+
+```
+sudo add-apt-repository ppa:graphics-drivers/ppa`
+sudo apt update
+sudo apt install nvidia-396 -y && sudo reboot
+```
 
 A system reboot is recommended at this stage.
 
-**Preparation steps**
+**Installing the CUDA toolkit**
 1. Download the CUDA package (`runfile`) from NVIDIA's [developer site](https://developer.nvidia.com/cuda-downloads?target_os=Linux)
 2. Download the cuDNN package from NVIDIA [here](https://developer.nvidia.com/cudnn). You will require a free developer account to download this package.
+   **Download the `tar.gz` file**
 3. Make sure that you can access these files on your workstation before proceeding.
+4. Navigate to the directory in which you stored the CUDA installer
+5. Open a command line at your current directory. On most desktop enviroments, you can right click and select "Open Terminal". 
+5. `sudo chmod +x *.run*` to make the installers executable
+6. Run the installer using `sudo ./<filename>.run`
+7. Follow the instructions and agree to everything **except to install the NVIDIA drivers**
+   **REPEAT: DO NOT INSTALL THE NVIDIA DRIVERS**
 
-For this section, it is **strongly suggested** that you SSH into your workstation from another device. You will require (minimally) this guide on a seperate device this as you **will** lose access to the graphical user interface (GUI) during this installation process. 
-
-1. Install general package dependencies by running:
-	- `sudo apt install build-essential cmake git unzip pkg-config libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev libgtk-3-dev libhdf5-serial-dev graphviz libopenblas-dev libatlas-base-dev gfortran -y`
-	- `sudo apt install python-dev python-pip python-tk python3-dev python3-pip python3-tk python-imaging-tk -y`
-2. Install generic linux headers (required to switch to NVIDIA drivers):
-	- `sudo apt install linux-image-generic linux-image-extra-virtual linux-source linux-headers-generic`
-3. Stop the X server (GUI) by running `sudo service lightdm stop`
-4. We will now disable the open-source Nouveau graphics driver: `sudo nano /etc/modprobe.d/blacklist-nouveau.conf`
-5. Add the following lines to the file (`ctrl + shift + V` or `CMD + V` to paste):
-
-```
-blacklist nouveau
-blacklist lbm-nouveau
-options nouveau modeset=0
-alias nouveau off
-alias lbm-nouveau off
-```
-
-6. Press `ctrl + X` to save the file and exit the `nano` text editor.
-7. `echo options nouveau modeset=0 | sudo tee -a /etc/modprobe.d/nouveau-kms.conf`
-8. `sudo update-initramfs -u`
-9. `sudo reboot`
-
-Wait for your workstation to reboot, then SSH in again. If your display looks funky, you're doing it right. Once again, run `sudo service lightdm stop` to disable the X server before proceeding.
-
-10. Navigate to the directory in which you stored the CUDA installer using the `cd` command
-11. `sudo chmod +x *.run*` to make the installer executable
-12. Run the installer using `sudo ./<filename>.run`
-13. Follow the instructions and agree to everything
-
-After everything is done, reboot. If your display is no longer funky, then the NVIDIA drivers have been properly installed. To check the status of your GPUs, run `nvidia-smi` in the Terminal.
-
-### Special Note on NVIDIA Driver
-
-The driver bundled with the CUDA toolkit will work perfectly until the next Ubuntu kernel update is performed, after which the driver may not functional properly. To ensure the driver remains functional across kernel updates, please reinstall the NVIDIA driver the following way:
-
-`sudo add-apt-repository ppa:graphics-drivers/ppa`
-
-`sudo apt update`
-
-`sudo apt install nvidia-396 -y && sudo reboot`
+After everything is done, reboot. If your display is not funky, then the NVIDIA drivers have been properly installed. To check the status of your GPUs, run `nvidia-smi` in the Terminal.
 
 ## Installing cuDNN 7.1
 
@@ -93,17 +70,24 @@ The driver bundled with the CUDA toolkit will work perfectly until the next Ubun
 
 cuDNN is now installed and working.
 
-## Building TensorFlow from source
+## Building TensorFlow from source (optional)
+
+Building TensorFlow from sources ensures that the binary you are using has been compiled with all the optimisations for your target platform. This can squeeze out a little more performance, depending on your system hardware. However, this might take up to a couple of hours. 
 
 **Optional Prerequisites**
 
 1. Update python base packages by running `sudo pip3 install pip setuptools wheel --upgrade`
-2. Install the entire Python data science stack by running `sudo pip3 install numpy scipy pandas sklearn matplotlib jupyter opencv-contrib-python tensorflow`
+2. Install the base Python data science stack by running `sudo pip3 install numpy scipy pandas sklearn matplotlib jupyter tensorflow`
+   We will install TensorFlow just to ensure that all other dependencies are met. We will replace this TensorFlow with one that we compile ourselves.
 
 **Required Prerequisites**
 
 1. CUDA and cuDNN to be installed and functional.
 2. Install TensorFlow from pip to make sure all dependencies are met
+
+For the current version of TensorFlow, you will also need to manually install NCCL.
+
+`TODO: NCCL install guide`
 
 The full instructions can be found on the [TensorFlow webpage](https://www.tensorflow.org/install/install_sources).
 
@@ -113,3 +97,16 @@ The full instructions can be found on the [TensorFlow webpage](https://www.tenso
 
 1. Follow [this guide](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04) to install `docker`
 2. Follow the [instruction](https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0)) to install `nvidia-docker`
+
+## Using containers from NVIDIA GPU Cloud (NGC)
+
+```
+TODO
+
+rough steps:
+
+register for account
+configure authentication for registry
+pull container
+run sample
+```
