@@ -14,7 +14,6 @@ Setup guide for the ultimate Deep Learning workstation, powered by NVIDIA
 
 **This guide is tested on Ubuntu 16.04.**
 
-
 ## Installing NVIDIA drivers + CUDA 9.2
 
 **Preparing the Ubuntu environment**
@@ -31,7 +30,12 @@ SSH allows you remote access to your workstation via the command line. This is e
 The driver bundled with the CUDA toolkit will work perfectly until the next Ubuntu kernel update is performed, after which the driver may not functional properly. To ensure the driver remains functional across kernel updates, please install the NVIDIA driver the following way:
 
 ```
-sudo add-apt-repository ppa:graphics-drivers/ppa`
+TODO
+disable nouveau
+```
+
+```
+sudo add-apt-repository ppa:graphics-drivers/ppa
 sudo apt update
 sudo apt install nvidia-396 -y && sudo reboot
 ```

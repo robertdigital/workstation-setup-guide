@@ -2,6 +2,8 @@
 
 [Back](README.md) | [Tool Guide](nvidia-tools.md) | [Kubernetes/Kubeflow Guide](kubeflow-setup.md)
 
+> Note: [Kubeflow](https://www.kubeflow.org/) is a very powerful solution to creating (among other things) a JupyterHub server on your workstation that you can use as a GUI to create isolated Jupyter Notebook enviroments, with access control. We document how to set that up [here](kubeflow-setup.md).
+
 ### 1. Setup
 
 Remote command line access is provided by SSH (previously configured)
