@@ -25,14 +25,33 @@ Setup guide for the ultimate Deep Learning workstation, powered by NVIDIA
 
 SSH allows you remote access to your workstation via the command line. This is extremely useful. You may now SSH into your workstation by running `ssh username@ip-address` from a macOS or Linux terminal. If you are using Windows, you will require an SSH client such as [PuTTY](https://www.putty.org/).
 
+**Disabling nouveau**
+
+```
+sudo apt-get install linux-image-generic linux-image-extra-virtual linux-source linux-headers-generic -y
+```
+
+`sudo nano /etc/modprobe.d/blacklist-nouveau.conf`
+
+Add in and save:
+
+```
+blacklist nouveau
+blacklist lbm-nouveau
+options nouveau modeset=0
+alias nouveau off
+alias lbm-nouveau off
+```
+
+```
+echo options nouveau modeset=0 | sudo tee -a /etc/modprobe.d/nouveau-kms.conf
+sudo update-initramfs -u
+sudo reboot
+```
+
 **Installing the NVIDIA drivers**
 
 The driver bundled with the CUDA toolkit will work perfectly until the next Ubuntu kernel update is performed, after which the driver may not functional properly. To ensure the driver remains functional across kernel updates, please install the NVIDIA driver the following way:
-
-```
-TODO
-disable nouveau
-```
 
 ```
 sudo add-apt-repository ppa:graphics-drivers/ppa
