@@ -6,6 +6,14 @@
 
 The Kubeflow project is dedicated to making deployments of machine learning workflows on Kubernetes simple, portable and scalable, providing a straightforward way to deploy systems for ML to diverse infrastructures. Kubeflow comes with several useful components, including JupyterHub, and has support for GPU-accelerated compute. Check out the official documentation at [kubeflow.org](http://kubeflow.org/).
 
+### Page Index
+
+1. Installing/Configuring Docker and Kubernetes (NVIDIA-distribution)
+2. Installing Kubeflow with Minikube (Single Node Only!)
+3. Installing Kubeflow on Kubernetes (Multiple Nodes)
+4. Customising the Spawner GUI
+5. Common Issues
+
 ## Installing Kubenetes
 
 Prerequisites:
@@ -46,7 +54,7 @@ Do `sudo pkill -SIGHUP dockerd` to restart the Docker daemon.
 
 To test: `docker run --rm nvidia/cuda nvidia-smi`
 
-## Installing Kubeflow with Minikube (Single Node Only)
+## Installing Kubeflow with Minikube (Single Node Only!)
 
 [Minikube](https://github.com/kubernetes/minikube) is a tool that makes it easy to run Kubernetes locally on a single node. This is very useful if, for example, you can a 4 GPU machine (e.g. DGX Station) that you are sharing among a small team, or have many infrequent users that may need to use it (e.g. in a University).
 
@@ -109,6 +117,8 @@ sudo cp ks_0.12.0_linux_amd64/ks /usr/local/bin/
 
 ### Install Kubeflow using ksonnet
 
+#### Environment Setup
+
 ```
 # Create a namespace for kubeflow deployment
 NAMESPACE=kubeflow
@@ -122,16 +132,36 @@ APP_NAME=my-kubeflow
 ks init ${APP_NAME}
 cd ${APP_NAME}
 ks env set default --namespace ${NAMESPACE}
+```
+#### Install Kubeflow components
 
-# Add a reference to Kubeflow's ksonnet manifests
+```
 ks registry add kubeflow github.com/kubeflow/kubeflow/tree/${VERSION}/kubeflow
-
-# Install Kubeflow components
 ks pkg install kubeflow/core@${VERSION}
-ks pkg install kubeflow/tf-serving@${VERSION}
-ks pkg install kubeflow/tf-job@${VERSION} # TODO: update this command
-ks pkg install kubeflow/sklearn-job@${VERSION} # TODO: update this command
+```
 
+Only `core` is a **must** to install. The rest are extras:
+
+* [tf-serving](https://github.com/tensorflow/serving): TensorFlow Serving
+* [argo](https://github.com/argoproj/argo): Workflows for Kubernetes
+* [katib](https://github.com/kubeflow/katib): Hyperparameter Tuning on Kubeflow
+* [seldon](https://github.com/kubeflow/example-seldon): Deploy Models on Kubeflow
+* [mpi-job](https://github.com/kubeflow/mpi-operator): Allreduce-style distributed training
+* [pytorch-job](https://github.com/kubeflow/pytorch-operator): PyTorch Operator
+
+```
+ks pkg install kubeflow/tf-serving@${VERSION}
+ks pkg install kubeflow/argo@${VERSION}
+ks pkg install kubeflow/katib@${VERSION}
+ks pkg install kubeflow/seldon@${VERSION}
+ks pkg install kubeflow/mpi-job@${VERSION}
+ks pkg install kubeflow/pytorch-job@${VERSION}
+ks pkg install kubeflow/examples@${VERSION}
+```
+
+#### Final Steps
+
+```
 # Create templates for core components
 ks generate kubeflow-core kubeflow-core
 
@@ -154,6 +184,10 @@ To expose JupyterHub on your machine's IP address:
 PODNAME=`kubectl get pods --namespace=${NAMESPACE} --selector="app=tf-hub" --output=template --template="{{with index .items 0}}{{.metadata.name}}{{end}}"`
 kubectl expose pod $PODNAME --type=NodePort --name tf-service --namespace kubeflow
 ```
+
+## Installing Kubeflow on Kubernetes (Multiple Nodes)
+
+`TODO`
 
 ## Customising the Spawner GUI
 
@@ -178,7 +212,11 @@ GITHUB_TOKEN=xxxXXXxxx ks <command>
 sudo minikube dashboard &
 ```
 
-**Internet access from Jupyter Notebooks**
+**Using JupyterLab instead**
+
+Replace `?tree` in the URL with `lab`. (Yes, it's that easy.)
+
+**No Internet access from Jupyter Notebooks**
 
 Apply the following config. You can do so via GUI (Kubernetes Dashboard)
 
@@ -191,6 +229,26 @@ metadata:
 data:
   upstreamNameservers: |
     ["8.8.8.8"]
+```
+
+**Culling Idle Notebooks**
+
+Add the following to the JupyterHub configmap.
+
+```
+c.JupyterHub.services = [
+    {
+        'name': 'wget-cull-idle',
+        'admin': True,
+        'command': ['wget', 'https://raw.githubusercontent.com/jupyterhub/jupyterhub/master/examples/cull-idle/cull_idle_servers.py', '-N']
+    },
+
+    {
+        'name': 'cull-idle',
+        'admin': True,
+        'command': ['python', 'cull_idle_servers.py', '--timeout=3600']
+    }
+]
 ```
 
 
