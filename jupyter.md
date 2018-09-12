@@ -1,6 +1,6 @@
-[Tool Guide](nvidia-tools.md) | [Sharing Guide](sharing.md) | [Kubernetes/Kubeflow Guide](kubeflow-setup.md)
-
 # Jupyter Notebook Guide
+
+[Back](README.md) | [Tool Guide](nvidia-tools.md) | [Kubernetes/Kubeflow Guide](kubeflow-setup.md)
 
 ## Starting a Notebook
 

@@ -1,5 +1,3 @@
-![NVIDIA](images/nvidia.png) ![developer](images/developer.png)
-
 # Workstation Setup Guide
 Setup guide for the ultimate Deep Learning workstation, powered by NVIDIA
 
