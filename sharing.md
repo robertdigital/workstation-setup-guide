@@ -98,11 +98,20 @@ Simply replace those files with the files in the `/motd/` folder in this reposit
 
 This will allow you to expose your workstation's SSH and Jupyter Notebook on a public IP address. Naturally, this will come with some security risks. This guide does not fully address such risks.
 
+For this, you require a small VPS/cloud instance with a public IP address.
+
 Sample SSH command:
 
 `nohup autossh -N -T -R :public-port:0.0.0.0:jupyter-port root@public-ip-address &`
 
-Somewhere along the way there's a need to edit the `/etc/ssh/sshd_config` file to add in the following line:
+Breakdown of this command:
+
+* `nohup` allows the command to run after you disconnect ("no-hangup")
+* `autossh` reconnects the tunnel if it disconnects for any reason. You'll need to setup SSH key-pair authentication for this to work seamlessly
+* `&` tasks the autossh thread to run in the background
+* [Breakdown of arguments](https://explainshell.com/explain?cmd=ssh+-N+-T+-R)
+
+On your VPS/cloud instance, there's a need to edit the `/etc/ssh/sshd_config` file to add in the following line:
 
 ```
 GatewayPorts clientspecified
