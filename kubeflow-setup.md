@@ -13,6 +13,12 @@ The Kubeflow project is dedicated to making deployments of machine learning work
 3. Installing Kubeflow on Kubernetes (Multiple Nodes)
 4. Customising the Spawner GUI
 5. Common Issues
+   * GitHub Rate Limit
+   * Kubernetes Dashboard
+   * Common Dataset Volume
+   * JupyterLab
+   * No Internet access for Notebook
+   * Culling Idle Notebook
 
 ## Installing Kubenetes
 
@@ -216,7 +222,7 @@ sudo minikube dashboard &
 
 To create a shared volume for datasets:
 
-1. `wget XXXXXX`
+1. `wget https://raw.githubusercontent.com/NVAITC/workstation-setup-guide/master/kubeflow_files/dataset_volume.yaml`
 2. `nano dataset_volume.yaml` and edit the volume size to your requirements
 3. `kubectl create -f dataset_volume.yaml -n kubeflow`
 
