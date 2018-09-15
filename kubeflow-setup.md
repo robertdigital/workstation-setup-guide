@@ -212,6 +212,39 @@ GITHUB_TOKEN=xxxXXXxxx ks <command>
 sudo minikube dashboard &
 ```
 
+**Common Dataset Volume**
+
+To create a shared volume for datasets:
+
+1. `wget XXXXXX`
+2. `nano dataset_volume.yaml` and edit the volume size to your requirements
+3. `kubectl create -f dataset_volume.yaml -n kubeflow`
+
+Modify the `jupyterhub_config.py` file in configmap:
+
+```
+# INSERT UNDER
+# if pvc_mount and pvc_mount != 'null':
+	....
+	....
+	volumes.append(
+	        {
+	            'name': 'volume-datasets',
+	            'persistentVolumeClaim': {
+	                    'claimName': 'claim-datasets'
+	            }
+	        }
+	    )
+	volume_mounts.append(
+	        {
+	            'mountPath': pvc_mount+'/datasets',
+	            'name': 'volume-datasets'
+	        }
+	    )
+	....
+	....
+```
+
 **Using JupyterLab instead**
 
 Replace `?tree` in the URL with `lab`. (Yes, it's that easy.)
