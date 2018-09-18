@@ -19,6 +19,7 @@ The Kubeflow project is dedicated to making deployments of machine learning work
    * JupyterLab
    * No Internet access for Notebook
    * Culling Idle Notebook
+   * PyTorch
 
 ## Installing Kubenetes
 
