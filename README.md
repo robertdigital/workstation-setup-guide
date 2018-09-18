@@ -125,6 +125,7 @@ The full instructions can be found on the [TensorFlow webpage](https://www.tenso
 TODO
 
 rough steps:
+https://ngc.nvidia.com/configuration/installers/cli
 
 register for account
 configure authentication for registry

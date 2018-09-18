@@ -19,7 +19,7 @@ The Kubeflow project is dedicated to making deployments of machine learning work
    * JupyterLab
    * No Internet access for Notebook
    * Culling Idle Notebook
-   * PyTorch
+   * Using NGC Images
 
 ## Installing Kubenetes
 
@@ -318,9 +318,12 @@ c.JupyterHub.services = [
 ]
 ```
 
-**What about PyTorch?**
+**NGC Images**
 
-You may `pip install torch torchvision` in any of the Kubeflow-curated notebook images, or use our all-in-one image: `tlkh/deeplearning-lab`.
+You may use our custom image built from the NGC images, which are fully optimised and test by NVIDIA for maximum performance on supported systems
+
+* [`tlkh/pytorch-lab:0.1`](https://hub.docker.com/r/tlkh/pytorch-lab/)
+* [`tlkh/tensorflow-lab:0.1 `](https://hub.docker.com/r/tlkh/tensorflow-lab/)
 
 
 
