@@ -231,6 +231,8 @@ GITHUB_TOKEN=xxxXXXxxx ks <command>
 
 **Kubernetes Dashboard**
 
+Find out more about [Kubernetes Dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/).
+
 ### Minikube
 
 ```
