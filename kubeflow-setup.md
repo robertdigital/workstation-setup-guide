@@ -233,7 +233,7 @@ GITHUB_TOKEN=xxxXXXxxx ks <command>
 
 Find out more about [Kubernetes Dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/).
 
-### Minikube
+1. Minikube
 
 ```
 sudo minikube dashboard &
@@ -241,7 +241,7 @@ sudo minikube dashboard &
 
 The dashboard will be available on `localhost:30000`.
 
-### Other
+2. Other
 
 Please see [Kubernetes Dashboard GitHub repository](https://github.com/kubernetes/dashboard).
 
@@ -316,5 +316,11 @@ c.JupyterHub.services = [
     }
 ]
 ```
+
+**What about PyTorch?**
+
+You may `pip install torch torchvision` in any of the Kubeflow-curated notebook images, or use our all-in-one image: `tlkh/deeplearning-lab`.
+
+
 
 
