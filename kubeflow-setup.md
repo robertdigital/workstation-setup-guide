@@ -8,7 +8,7 @@ The Kubeflow project is dedicated to making deployments of machine learning work
 
 ### Page Index
 
-1. Installing/Configuring Docker and Kubernetes (NVIDIA-distribution)
+1. Installing/Configuring Docker and Kubernetes (nvidia-distribution)
 2. Installing Kubeflow with Minikube (Single Node Only!)
 3. Installing Kubeflow on Kubernetes (Multiple Nodes)
 4. Customising the Spawner GUI
@@ -197,11 +197,22 @@ kubectl expose pod $PODNAME --type=NodePort --name tf-service --namespace kubefl
 
 ## Customising the Spawner GUI
 
-`TODO`
+The gist of it is edit the `jupyterhub-config` ConfigMap in order to change the configuration file that is loaded by JupyterHub (`jupyterhub_config.py`). You may use the Kubernetes Dashboard or use kubectl:
 
-The gist of it is edit the JupyterHub configmap.
+```
+kubectl edit configmap jupyterhub-config -n kubeflow
+```
 
-API Reference: [KubeSpawner](https://jupyterhub-kubespawner.readthedocs.io/en/latest/spawner.html#kubespawner)
+**To change the form itself, you need to edit the HTML5 content that is returned by `KubeFormSpawner._options_form_default()`.**
+
+The rest of the file controls various other JupyterHub configuration.
+
+### Remarks
+
+* If you wish to use nano instead of the default `vim`, you can set the editor by prepending `KUBE_EDITOR="nano"` to the command above.
+* For making complex changes to the file, it is recommended to open the ConfigMap in a proper editor, such as VS Code.
+* [Sample `jupyterhub_config.py`.](kubeflow_files/demo_jupyterhub_config.py)
+* KubeSpawner API Reference: [KubeSpawner](https://jupyterhub-kubespawner.readthedocs.io/en/latest/spawner.html#kubespawner)
 
 ## Common Issues
 
@@ -214,9 +225,17 @@ GITHUB_TOKEN=xxxXXXxxx ks <command>
 
 **Kubernetes Dashboard**
 
+### Minikube
+
 ```
 sudo minikube dashboard &
 ```
+
+The dashboard will be available on `localhost:30000`.
+
+### Other
+
+Please see [Kubernetes Dashboard GitHub repository](https://github.com/kubernetes/dashboard).
 
 **Common Dataset Volume**
 
@@ -226,7 +245,7 @@ To create a shared volume for datasets:
 2. `nano dataset_volume.yaml` and edit the volume size to your requirements
 3. `kubectl create -f dataset_volume.yaml -n kubeflow`
 
-Modify the `jupyterhub_config.py` file in configmap:
+Modify the `jupyterhub_config.py` file in `jupyterhub-config` ConfigMap:
 
 ```
 # INSERT UNDER
