@@ -197,7 +197,13 @@ kubectl expose pod $PODNAME --type=NodePort --name tf-service --namespace kubefl
 
 ## Customising the Spawner GUI
 
-The gist of it is edit the `jupyterhub-config` ConfigMap in order to change the configuration file that is loaded by JupyterHub (`jupyterhub_config.py`). You may use the Kubernetes Dashboard or use kubectl:
+The gist of it is edit the `jupyterhub-config` ConfigMap in order to change the configuration file that is loaded by JupyterHub (`jupyterhub_config.py`).
+
+You may use the Kubernetes Dashboard:
+
+![edit configmap in kubernetes dashboard](images/edit_configmap.jpg)
+
+Or `kubectl`:
 
 ```
 kubectl edit configmap jupyterhub-config -n kubeflow
