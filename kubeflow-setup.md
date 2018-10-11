@@ -320,10 +320,7 @@ c.JupyterHub.services = [
 
 **NGC Images**
 
-You may use our custom image built from the NGC images, which are fully optimised and test by NVIDIA for maximum performance on supported systems
-
-* [`tlkh/pytorch-lab:0.1`](https://hub.docker.com/r/tlkh/pytorch-lab/)
-* [`tlkh/tensorflow-lab:0.1 `](https://hub.docker.com/r/tlkh/tensorflow-lab/)
+Coming soon
 
 
 
