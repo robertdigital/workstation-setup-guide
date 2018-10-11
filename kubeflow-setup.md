@@ -117,9 +117,9 @@ minikube   4
 You might want to check the latest ksonnet release on the GitHub [releases page](https://github.com/ksonnet/ksonnet/releases).
 
 ```
-wget https://github.com/ksonnet/ksonnet/releases/download/v0.12.0/ks_0.12.0_linux_amd64.tar.gz
-tar -xzf ks_0.12.0_linux_amd64.tar.gz
-sudo cp ks_0.12.0_linux_amd64/ks /usr/local/bin/
+wget https://github.com/ksonnet/ksonnet/releases/download/v0.13.0/ks_0.13.0_linux_amd64.tar.gz
+tar -xzf ks_0.13.0_linux_amd64.tar.gz
+sudo cp ks_0.13.0_linux_amd64/ks /usr/local/bin/
 ```
 
 ### Install Kubeflow using ksonnet
@@ -132,7 +132,7 @@ NAMESPACE=kubeflow
 kubectl create namespace ${NAMESPACE}
 
 # https://github.com/kubeflow/kubeflow/releases
-VERSION=v0.2.5
+VERSION=v0.2.7
 
 # Initialize a ksonnet app. Set the namespace for its default environment.
 APP_NAME=my-kubeflow
