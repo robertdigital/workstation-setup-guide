@@ -70,7 +70,7 @@ To test: `docker run --rm nvidia/cuda nvidia-smi`
 Run the following commands:
 
 ```
-curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube && sudo cp minikube /usr/local/bin/ && rm minikube
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.28.2/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
 export MINIKUBE_WANTREPORTERRORPROMPT=false
 export MINIKUBE_HOME=$HOME
 export CHANGE_MINIKUBE_NONE_USER=true
@@ -103,7 +103,7 @@ WARNING: IT IS RECOMMENDED NOT TO RUN THE NONE DRIVER ON PERSONAL WORKSTATIONS
 
 Output: `daemonset "nvidia-device-plugin-daemonset" created`
 
-Check if the GPUs on your node can be accessed from minikube:
+Please wait for about 30 seconds and then check if the GPUs on your node can be accessed from minikube:
 
 `kubectl get nodes -o=custom-columns=NAME:.metadata.name,GPUs:.status.capacity.'nvidia\.com/gpu'`
 
@@ -200,7 +200,7 @@ kubectl expose pod $PODNAME --type=NodePort --name tf-service --namespace kubefl
 
 The gist of it is edit the `jupyterhub-config` ConfigMap in order to change the configuration file that is loaded by JupyterHub (`jupyterhub_config.py`).
 
-You may use the Kubernetes Dashboard:
+You may use the Kubernetes Dashboard. You will need to change the namespace to `kubeflow` in order to see the correct set of resources.
 
 ![edit configmap in kubernetes dashboard](images/edit_configmap.jpg)
 
