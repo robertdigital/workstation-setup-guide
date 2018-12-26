@@ -70,6 +70,7 @@ To test: `docker run --rm nvidia/cuda nvidia-smi`
 Run the following commands:
 
 ```
+curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl && sudo cp kubectl /usr/local/bin/ && rm kubectl
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.28.2/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
 export MINIKUBE_WANTREPORTERRORPROMPT=false
 export MINIKUBE_HOME=$HOME
@@ -117,9 +118,9 @@ minikube   4
 You might want to check the latest ksonnet release on the GitHub [releases page](https://github.com/ksonnet/ksonnet/releases).
 
 ```
-wget https://github.com/ksonnet/ksonnet/releases/download/v0.13.0/ks_0.13.0_linux_amd64.tar.gz
-tar -xzf ks_0.13.0_linux_amd64.tar.gz
-sudo cp ks_0.13.0_linux_amd64/ks /usr/local/bin/
+wget https://github.com/ksonnet/ksonnet/releases/download/v0.13.1/ks_0.13.1_linux_amd64.tar.gz
+tar -xzf ks_0.13.1_linux_amd64.tar.gz
+sudo cp ks_0.13.1_linux_amd64/ks /usr/local/bin/
 ```
 
 ### Install Kubeflow using ksonnet
