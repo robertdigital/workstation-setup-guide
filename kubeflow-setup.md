@@ -81,9 +81,7 @@ sudo -E minikube start --vm-driver=none --feature-gates=DevicePlugins=true
 In case you get an error about Docker version:
 
 ```
-sudo apt purge docker-ce
-sudo reboot
-sudo apt-get install docker-ce=18.06.1~ce~3-0~ubuntu
+sudo apt install docker-ce=18.06.1~ce~3-0~ubuntu
 ```
 
 If all went well, you should see the following outout:
