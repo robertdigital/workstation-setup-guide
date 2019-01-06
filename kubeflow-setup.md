@@ -81,7 +81,16 @@ sudo -E minikube start --vm-driver=none --feature-gates=DevicePlugins=true
 In case you get an error about Docker version:
 
 ```
+sudo minikube delete
+sudo service docker stop
 sudo apt install docker-ce=18.06.1~ce~3-0~ubuntu
+sudo apt install nvidia-docker2=2.0.3+docker18.06.1-1 nvidia-container-runtime=2.0.0+docker18.06.1-1
+```
+
+And then create a new minikube cluster:
+
+```
+sudo -E minikube start --vm-driver=none --feature-gates=DevicePlugins=true
 ```
 
 If all went well, you should see the following outout:
