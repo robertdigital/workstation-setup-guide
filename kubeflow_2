@@ -1,0 +1,28 @@
+1. setup k8s cluster with calico
+
+configure docker root to external drive if OS drive too small
+https://github.com/IronicBadger/til/blob/master/docker/change-docker-root.md
+
+set cidr properly
+
+2. setup nfs storage class
+
+use helm https://github.com/kubernetes-incubator/external-storage/tree/master/nfs-client
+
+fix Error: no available release name found
+
+https://github.com/helm/helm/issues/3055#issuecomment-375537162
+
+https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/
+
+3. install kubeflow
+
+https://www.kubeflow.org/docs/started/getting-started/
+
+4. install kubernetes dashboard
+
+https://github.com/kubernetes/dashboard
+
+5. export nodeports
+
+kubectl expose pod $PODNAME --type=NodePort --name tf-service --namespace kubeflow
